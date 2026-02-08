@@ -1,3 +1,23 @@
+<div class="parent-block">
+<div class="area-block">
+	<div class="'card-block">
+	@for (card of hand.cards; track $index) {
+	<div class="card">
+		@if (show || $index < 4) {
+			<img [src]="getCardImage(card)" alt="{{ card.rank }} of {{ card.suit }}">
+		}@else{
+			<img src="assets/images/back.png" alt="Card Back">
+		}
+	</div>
+	}
+</div>
+<div class="button-block">
+	<button [ngClass]="buttonClass" (click)="dealHand()">Deal New Hand</button>
+	<button [ngClass]="buttonClass" (click)="show=!show">{{ show ? 'Hide' : 'Show' }} Last Card</button>
+	<button [ngClass]="buttonClass" (click)="showEncoding=!showEncoding">{{ showEncoding ? 'Hide' : 'Show' }} Encoding</button>
+</div>
+</div>
+@if(showEncoding) {
 <div class="info-block">
 	<div class="title">Encoding:</div>
 	<div class="content">
@@ -36,18 +56,5 @@
 		</table>
 	</div>
 </div>
-<div class="button-block">
-	<button (click)="dealHand()">Deal New Hand</button>
-	<button (click)="show=!show">{{ show ? 'Hide' : 'Show' }} Last Card</button>
-</div>
-<div class="card-block">
-	@for (card of hand.cards; track $index) {
-	<div class="card">
-		@if (show || $index < 4) {
-			<img [src]="getCardImage(card)" alt="{{ card.rank }} of {{ card.suit }}">
-		}@else{
-			<img src="assets/images/back.png" alt="Card Back">
-		}
-	</div>
-	}
+}
 </div>

@@ -1,12 +1,17 @@
+.parent-block{
+	display: flex;
+	flex-direction: row;
+	width:100%;
+}
 .info-block{
 	//raise the card info block to give a 3d appearance with shadow
-	box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+	box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
 	display: inline-block;
+	margin-right:20px;
+	margin-top:10px;
+	width:450px;
 	border: 1px solid black;
 	padding: 1em;
-	position:absolute;
-	right:10px;
-	top:10px;
 }
 
 .title{
@@ -15,13 +20,11 @@
 	margin-bottom: .6em;
 }
 
-.card-block{
-	display:inline-block;
-	border: 1px solid black;
+.area-block{
 	padding: 1em;
-	margin-right: 29em;
-	margin-top:1em;
+	flex:1;
 }
+
 .card{
 	display:inline-block;
 	
@@ -33,10 +36,11 @@
 }
 
 .button-block{
-	margin-top:10px;
+	margin-top:20px;
+	width:100%;
 }
 .button-block button{
-	margin-right:5px;
-	padding: 0.5em 1em;
-	font-size: 1em;
+	margin-right:20px;
+	width:200px;
 }
+

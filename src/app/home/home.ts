@@ -10,7 +10,9 @@ import { CommonModule } from '@angular/common';
 })
 export class Home {
 
+  buttonClass: string = "button-74";
   show:boolean=false;
+  showEncoding:boolean=false;
   hand: Hand = new Hand();
 
   dealHand(): void {
