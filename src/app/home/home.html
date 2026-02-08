@@ -1,0 +1,53 @@
+<div class="info-block">
+	<div class="title">Encoding:</div>
+	<div class="content">
+		Suit Ranks from High to low: Spades, Clubs, Diamonds, Hearts<br>
+		Card Ranks from High to low: King, Queen, Jack, 10,..., 2, Ace<br><br>
+		Difference Encoding Table: <br>
+		<table>
+			<tr>
+				<th>Card</th>
+				<th>Encoding</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Small, Medium, Large</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Small, Large,Mediam</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Medium, Small,Large</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>Medium, Large,Small</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>Large, Small, Medium</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td>Large, Small, Medium</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="button-block">
+	<button (click)="dealHand()">Deal New Hand</button>
+	<button (click)="show=!show">{{ show ? 'Hide' : 'Show' }} Last Card</button>
+</div>
+<div class="card-block">
+	@for (card of hand.cards; track $index) {
+	<div class="card">
+		@if (show || $index < 4) {
+			<img [src]="getCardImage(card)" alt="{{ card.rank }} of {{ card.suit }}">
+		}@else{
+			<img src="assets/images/back.png" alt="Card Back">
+		}
+	</div>
+	}
+</div>
