@@ -10,13 +10,8 @@ import { Card, CardData, Suit } from "../card/card";
 export class Hand {
   @Input() show: boolean = false;
   @ViewChildren(Card) cards!: QueryList<Card>;
-  cardData: CardData[] = [
-    {rank: 1,suit: Suit.Hearts},
-    {rank: 1,suit: Suit.Hearts},
-    {rank: 1,suit: Suit.Hearts},
-    {rank: 1,suit: Suit.Hearts},
-    {rank: 1,suit: Suit.Hearts}
-  ];
+
+  cardData!: CardData[];
 
   constructor() {
     this.dealHand();
@@ -29,30 +24,29 @@ export class Hand {
   //@returns: none
   //@side-effects: Updates the cards in the hand with a new random hand of 5 cards.
   public dealHand(): void {
-    const hand: CardData[] = [];
-    while (hand.length < 5) {
+    this.cardData = [];
+    while (this.cardData.length < 5) {
       const suit = Math.floor(Math.random() * 4) + 1; // Random suit between 1 and 4
       const rank = Math.floor(Math.random() * 13) + 1; // Random rank between 1 and 13
       // Check for duplicates
       const card = { rank: rank, suit: suit };
-      if (!hand.some(c => c.suit === card.suit && c.rank === card.rank)) {
-        hand.push(card);
+      if (!this.cardData.some(c => c.suit === card.suit && c.rank === card.rank)) {
+        this.cardData.push(card);
       }
     }
-    this.orderHand(hand);
+    this.orderHand();
     this.show = false;
-    this.cardData = hand;
   }
 
   //orderHand()
   //@description: This function orders the hand according to the rules of the game.  The ordering is done by first finding the two cards that are the same suit, then ordering those two cards by rank, then ordering the remaining three cards by rank and suit.  Finally, the hand is ordered according to the difference in rank between the two paired cards then encoding it in the order of the other cards,
-  //@params: cards: CardData[] - the hand of cards to be ordered.
+  //@params: None
   //@returns: void
   //@side-effects: Updates the order of the cards in the hand according to the rules of the game.
-  public orderHand(cards:CardData[]): void {
+  public orderHand(): void {
     // Pick 2 cards from hand that are the same suit
     const suitGroups: { [key: number]: CardData[] } = {};
-    cards.forEach(card => {
+    this.cardData.forEach(card => {
       if (!suitGroups[card.suit]) {
         suitGroups[card.suit] = [];
       }
@@ -68,13 +62,15 @@ export class Hand {
     let paired: CardData[] = [];
     for (let i = 0; i < 2; i++) {
       paired.push(suitGroups[suit][i]);
-      cards.splice(cards.indexOf(suitGroups[suit][i]), 1);
+      this.cardData.splice(this.cardData.indexOf(suitGroups[suit][i]), 1);
     }
     paired.sort((a, b) => a.rank - b.rank);
     let diff = paired[1].rank - paired[0].rank;
     //if diff>6 swap the cards
     if (diff > 6) {
-      this.swapCards(paired,0, 1);
+      let temp=paired[0];
+      paired[0]=paired[1];
+      paired[1]=temp;
     }
     diff = paired[1].rank - paired[0].rank;
     //if diff is negative figure out the difference with wrap around
@@ -83,7 +79,7 @@ export class Hand {
     }
     
     //sort cards by rank, then suit
-    cards.sort((a, b) => {
+    this.cardData.sort((a, b) => {
       if (a.rank === b.rank) {
         return a.suit - b.suit;
       }
@@ -93,35 +89,36 @@ export class Hand {
       case 1: //sml
         break;
       case 2: //slm
-        this.swapCards(cards,1, 2)
+        this.swapCards(1, 2)
         break;
       case 3:  //msl
-        this.swapCards(cards,0, 1);
+        this.swapCards(0, 1);
         break;
       case 4: //mls
-        this.swapCards(cards,0, 2)
-        this.swapCards(cards,0, 1);
+        this.swapCards(0, 2)
+        this.swapCards(0, 1);
         break;
       case 5: //lsm
-        cards.unshift(cards.pop()!);
+        this.cardData.unshift(this.cardData.pop()!);
         break;
       case 6: //lms
-        cards.reverse();
+        this.cardData.reverse();
         break;
     }
-    cards.unshift(paired[0]);
-    cards.push(paired[1]);
+    this.cardData.unshift(paired[0]);
+    this.cardData.push(paired[1]);
   }
+
   //swapCards()
   //@description: This function swaps the cards at the given indices in the hand.
   //@params: 	index1: number - the index of the first card to swap, 
   // 			index2: number - the index of the second card to swap.
   //@returns: void
   //@private
-  private swapCards(cards:CardData[],index1: number, index2: number): void {
-    const temp:CardData = cards[index1];
-    cards[index1] = cards[index2];
-    cards[index2] = temp;
+  private swapCards(index1: number, index2: number): void {
+    const temp:CardData = this.cardData[index1];
+    this.cardData[index1] = this.cardData[index2];
+    this.cardData[index2] = temp;
   }
 
 }
