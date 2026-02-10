@@ -1,0 +1,12 @@
+	<!-- <div class="'card-block">
+	@for (card of cards; track $index) {
+		<app-card></app-card>
+	}
+</div> -->
+<div>
+	<app-card [cardData]="cardData[0]"></app-card>
+	<app-card [cardData]="cardData[1]"></app-card>
+	<app-card [cardData]="cardData[2]"></app-card>
+	<app-card [cardData]="cardData[3]"></app-card>
+	<app-card [cardData]="cardData[4]" [show]="show"></app-card>
+</div>

@@ -1,0 +1,7 @@
+	<div class="card">
+		@if (show ) {
+			<img [src]="getImage()" alt="{{ cardData.rank }} of {{ cardData.suit }}">
+		}@else{
+			<img src="assets/images/back.png" alt="Card Back">
+		}
+	</div>

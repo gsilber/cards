@@ -3,6 +3,12 @@
 	flex-direction: row;
 	width:100%;
 }
+.slide-block{
+	display: inline-block;
+	margin-right:20px;
+	margin-top:10px;
+	width:472px;
+}
 .info-block{
 	//raise the card info block to give a 3d appearance with shadow
 	box-shadow: 5px 5px 5px rgba(0,0,0,0.3);
@@ -11,7 +17,7 @@
 	margin-top:10px;
 	width:450px;
 	border: 1px solid black;
-	padding: 1em;
+	padding: 10px;
 }
 
 .title{
@@ -25,15 +31,6 @@
 	flex:1;
 }
 
-.card{
-	display:inline-block;
-	
-}
-.card img{
-	width:100px;
-	
-	margin-right:15px;
-}
 
 .button-block{
 	margin-top:20px;
@@ -41,6 +38,7 @@
 }
 .button-block button{
 	margin-right:20px;
+	margin-bottom:15px;
 	width:200px;
 }
 
